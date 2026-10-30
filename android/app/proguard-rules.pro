@@ -23,3 +23,4 @@
 # ZXing QR Code
 -keep class com.google.zxing.** { *; }
 -keep class com.journeyapps.barcodescanner.** { *; }
+

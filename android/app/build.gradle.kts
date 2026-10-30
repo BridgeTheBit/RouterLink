@@ -27,7 +27,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfigs.findByName("debug")?.let {
+                signingConfig = it
+            }
         }
     }
 
