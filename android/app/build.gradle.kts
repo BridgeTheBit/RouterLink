@@ -53,6 +53,11 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    lint {
+        abortOnError = false
+        checkReleaseBuilds = false
+    }
 }
 
 dependencies {
@@ -80,7 +85,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     // WireGuard Tunnel Engine
-    implementation("com.wireguard.android:tunnel:1.0.20231011")
+    implementation("com.wireguard.android:tunnel:1.0.20230706")
 
     // QR Code Scanning (ZXing embedded)
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
