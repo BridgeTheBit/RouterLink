@@ -99,3 +99,4 @@ Write-Host "3. Go to 'Releases' (v1.0.0) once complete to download:"
 Write-Host "   - RouterLink-Release.apk"
 Write-Host "   - routerlink-mikrotik-scripts.zip"
 Write-Host "   - install.rsc`n"
+
