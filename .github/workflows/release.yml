@@ -1,0 +1,39 @@
+name: Create GitHub Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    name: Publish Release Bundle
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create Release Archive for MikroTik Scripts
+        run: |
+          mkdir -p release-bundle
+          cp mikrotik/*.rsc release-bundle/
+          cd release-bundle && zip -r ../routerlink-mikrotik-scripts.zip . && cd ..
+
+      - name: Generate Checksums
+        run: |
+          sha256sum routerlink-mikrotik-scripts.zip > checksums.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            routerlink-mikrotik-scripts.zip
+            checksums.txt
+            mikrotik/install.rsc
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+

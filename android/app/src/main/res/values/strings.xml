@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">RouterLink</string>
+    <string name="vpn_channel_id">routerlink_vpn_service</string>
+    <string name="vpn_channel_name">RouterLink VPN Status</string>
+    <string name="vpn_connected">Connected to RouterLink</string>
+    <string name="vpn_connecting">Establishing Secure Tunnel...</string>
+    <string name="vpn_disconnected">Disconnected</string>
+</resources>
+
