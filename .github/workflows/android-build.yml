@@ -28,18 +28,28 @@ jobs:
         with:
           gradle-version: '8.4'
 
-      - name: Prepare Gradle Wrapper
+      - name: Prepare Gradle Wrapper and mkdir logs
         run: |
           cd android
           gradle wrapper --gradle-version 8.4 --distribution-type bin
           chmod +x gradlew
+          mkdir -p /tmp/gradle-logs
 
-      - name: Build Android Release & Debug APK
+      - name: Build with log capture
         run: |
           cd android
-          ./gradlew assembleRelease assembleDebug --stacktrace
+          ./gradlew assembleRelease assembleDebug --stacktrace 2>&1 | tee /tmp/gradle-logs/build.log || true
+        shell: bash
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-build-log
+          path: /tmp/gradle-logs/build.log
 
       - name: Upload Release APK Artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: RouterLink-Release-APK
@@ -47,6 +57,7 @@ jobs:
           retention-days: 30
 
       - name: Upload Debug APK Artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: RouterLink-Debug-APK
@@ -54,6 +65,7 @@ jobs:
           retention-days: 30
 
       - name: Attach APK to GitHub Release
+        if: success()
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || 'v1.0.0' }}

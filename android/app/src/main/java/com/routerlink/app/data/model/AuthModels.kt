@@ -31,10 +31,11 @@ data class UserProfile(
     @SerializedName("allowed_protocols") val allowedProtocols: String
 )
 
-enum class VpnProtocol(val id: String, val displayName: String, val port: Int) {
-    OPENVPN_TCP("openvpn_tcp", "OpenVPN (TCP)", 8443),
-    OPENVPN_UDP("openvpn_udp", "OpenVPN (UDP)", 1194),
-    WIREGUARD("wireguard", "WireGuard (UDP)", 51820)
+enum class VpnProtocol(val id: String, val displayName: String, val port: Int, val description: String) {
+    OPENVPN_TCP("openvpn_tcp", "OpenVPN (TCP)", 8443, "Port 8443 • Anti-censorship / TLS"),
+    OPENVPN_UDP("openvpn_udp", "OpenVPN (UDP)", 1194, "Port 1194 • High Speed / UDP"),
+    WIREGUARD("wireguard", "WireGuard (UDP)", 51820, "Port 51820 • High Speed / Modern"),
+    IKEV2("ikev2", "IKEv2/IPSec (UDP)", 500, "Port 500 • Native iOS & Android Support")
 }
 
 enum class VpnStatus {

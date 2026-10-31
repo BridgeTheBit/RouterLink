@@ -30,7 +30,8 @@ fun ProtocolsScreen(
     val protocols = listOf(
         VpnProtocol.OPENVPN_TCP,
         VpnProtocol.WIREGUARD,
-        VpnProtocol.OPENVPN_UDP
+        VpnProtocol.OPENVPN_UDP,
+        VpnProtocol.IKEV2
     )
 
     Scaffold(
@@ -83,7 +84,7 @@ fun ProtocolsScreen(
                                 fontWeight = FontWeight.Bold
                             )
                             Text(
-                                text = "Port ${proto.port} • ${if (proto == VpnProtocol.OPENVPN_TCP) "Anti-censorship / TLS" else "High Speed / UDP"}",
+                                text = proto.description,
                                 color = TextSecondary,
                                 fontSize = 12.sp
                             )

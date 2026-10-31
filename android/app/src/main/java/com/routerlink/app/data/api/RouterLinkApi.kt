@@ -28,6 +28,11 @@ interface RouterLinkApi {
         @Header("Authorization") token: String
     ): Response<ResponseBody>
 
+    @GET("api/v1/client/config/ikev2")
+    suspend fun getIkeV2Config(
+        @Header("Authorization") token: String
+    ): Response<ResponseBody>
+
     @POST("api/v1/client/heartbeat")
     suspend fun sendHeartbeat(
         @Header("Authorization") token: String,

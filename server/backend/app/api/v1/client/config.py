@@ -59,3 +59,25 @@ def get_wireguard_profile(
         headers={"Content-Disposition": f'attachment; filename="routerlink_{user.username}.conf"'}
     )
 
+
+@router.get("/ikev2")
+def get_ikev2_profile(
+    user: User = Depends(get_current_client),
+    db: Session = Depends(get_db)
+):
+    if "ikev2" not in user.allowed_protocols:
+        raise ProtocolNotAllowedException("IKEv2 protocol is not allowed for your account")
+
+    engine = protocol_manager.get_engine("ikev2")
+    if not engine:
+        raise NotFoundHTTP("IKEv2 engine not available")
+
+    cfg = db.query(ProtocolConfig).filter(ProtocolConfig.protocol_name == "ikev2").first()
+    port = cfg.listen_port if cfg else engine.default_port
+
+    config_content = engine.generate_client_config(user, server_host=settings.SERVER_PUBLIC_HOST, port=port)
+    return Response(
+        content=config_content,
+        media_type="application/json",
+        headers={"Content-Disposition": f'attachment; filename="routerlink_{user.username}_ikev2.sswan"'}
+    )
