@@ -183,11 +183,9 @@ fun HomeScreen(
                         Text(text = "DOWNLOAD", color = TextSecondary, fontSize = 10.sp, fontWeight = FontWeight.SemiBold)
                         Text(text = formatSpeed(downloadSpeed), color = TextPrimary, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
-                    Divider(
+                    VerticalDivider(
                         color = BorderDark,
-                        modifier = Modifier
-                            .height(35.dp)
-                            .width(1.dp)
+                        modifier = Modifier.height(35.dp)
                     )
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(text = "UPLOAD", color = TextSecondary, fontSize = 10.sp, fontWeight = FontWeight.SemiBold)
@@ -219,9 +217,11 @@ fun HomeScreen(
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     LinearProgressIndicator(
-                        progress = if (profile != null && profile!!.trafficLimitBytes > 0) {
-                            (profile!!.usedTrafficBytes.toFloat() / profile!!.trafficLimitBytes.toFloat()).coerceIn(0f, 1f)
-                        } else 0f,
+                        progress = {
+                            if (profile != null && profile!!.trafficLimitBytes > 0) {
+                                (profile!!.usedTrafficBytes.toFloat() / profile!!.trafficLimitBytes.toFloat()).coerceIn(0f, 1f)
+                            } else 0f
+                        },
                         color = BrandPrimary,
                         trackColor = BorderDark,
                         modifier = Modifier

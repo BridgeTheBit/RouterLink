@@ -269,7 +269,7 @@ class RouterLinkVpnService : VpnService() {
             .setContentTitle("RouterLink Gateway")
             .setContentText(statusText)
             .setContentIntent(pendingIntent)
-            .addAction(android.R.drawable.ic_menu_close_clear_cancel, "Disconnect", disconnectPending)
+            .addAction(android.R.drawable.ic_delete, "Disconnect", disconnectPending)
             .setOngoing(true)
             .build()
     }
